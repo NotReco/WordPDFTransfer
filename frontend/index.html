@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordPDFTransfer — Chuyển đổi PDF & Word miễn phí</title>
+  <meta name="description" content="Công cụ chuyển đổi PDF sang Word và Word sang PDF miễn phí, chạy hoàn toàn trên máy tính của bạn. Không cần internet, không mất dữ liệu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background animated blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">WordPDF<span class="logo-accent">Transfer</span></span>
+      </div>
+      <div class="header-badges">
+        <span class="badge badge-free">✦ Miễn phí</span>
+        <span class="badge badge-local">🔒 Local &amp; Private</span>
+        <a href="https://github.com" target="_blank" class="badge badge-oss">⭐ Open Source</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="hero-title">
+      Chuyển đổi <span class="gradient-text">PDF ↔ Word</span><br/>
+      không cần trả phí
+    </h1>
+    <p class="hero-sub">
+      Chạy hoàn toàn trên máy bạn · Không upload lên cloud · Không quảng cáo · Không giới hạn
+    </p>
+  </section>
+
+  <!-- Conversion Cards -->
+  <main class="cards-grid" id="main">
+
+    <!-- Card 1: PDF → Word -->
+    <div class="card" id="card-pdf-to-word">
+      <div class="card-header">
+        <div class="card-icon-wrap pdf-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2v6h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-title">PDF → Word</h2>
+          <p class="card-desc">Chuyển file <code>.pdf</code> thành <code>.docx</code> có thể chỉnh sửa</p>
+        </div>
+      </div>
+
+      <div
+        class="drop-zone"
+        id="dz-pdf"
+        data-accept=".pdf"
+        data-endpoint="/api/convert/pdf-to-word"
+        data-output-ext="docx"
+      >
+        <div class="dz-content">
+          <div class="dz-icon">📄</div>
+          <p class="dz-label">Kéo thả file PDF vào đây</p>
+          <p class="dz-hint">hoặc click để chọn file</p>
+          <p class="dz-limit">Tối đa 50 MB · Chỉ nhận .pdf</p>
+        </div>
+        <input type="file" class="dz-input" id="input-pdf" accept=".pdf" />
+      </div>
+
+      <div class="progress-wrap" id="progress-pdf" hidden>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="fill-pdf"></div>
+        </div>
+        <p class="progress-label" id="label-pdf">Đang chuyển đổi…</p>
+      </div>
+
+      <div class="result-wrap" id="result-pdf" hidden>
+        <div class="result-icon">✅</div>
+        <p class="result-msg">Chuyển đổi thành công!</p>
+        <a class="btn-download" id="dl-pdf" href="#" download>
+          ⬇ Tải về file Word
+        </a>
+        <button class="btn-reset" id="reset-pdf">Chuyển file khác</button>
+      </div>
+    </div>
+
+    <!-- Divider arrow -->
+    <div class="arrow-divider">
+      <div class="arrow-icon">⇄</div>
+    </div>
+
+    <!-- Card 2: Word → PDF -->
+    <div class="card" id="card-word-to-pdf">
+      <div class="card-header">
+        <div class="card-icon-wrap word-icon-wrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 2v6h6M8 13l2 4 2-4 2 4 2-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-title">Word → PDF</h2>
+          <p class="card-desc">Chuyển file <code>.docx / .doc</code> thành <code>.pdf</code> chuẩn</p>
+        </div>
+      </div>
+
+      <div
+        class="drop-zone"
+        id="dz-word"
+        data-accept=".docx,.doc"
+        data-endpoint="/api/convert/word-to-pdf"
+        data-output-ext="pdf"
+      >
+        <div class="dz-content">
+          <div class="dz-icon">📝</div>
+          <p class="dz-label">Kéo thả file Word vào đây</p>
+          <p class="dz-hint">hoặc click để chọn file</p>
+          <p class="dz-limit">Tối đa 50 MB · Nhận .docx và .doc</p>
+        </div>
+        <input type="file" class="dz-input" id="input-word" accept=".docx,.doc" />
+      </div>
+
+      <div class="progress-wrap" id="progress-word" hidden>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="fill-word"></div>
+        </div>
+        <p class="progress-label" id="label-word">Đang chuyển đổi…</p>
+      </div>
+
+      <div class="result-wrap" id="result-word" hidden>
+        <div class="result-icon">✅</div>
+        <p class="result-msg">Chuyển đổi thành công!</p>
+        <a class="btn-download" id="dl-word" href="#" download>
+          ⬇ Tải về file PDF
+        </a>
+        <button class="btn-reset" id="reset-word">Chuyển file khác</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <h3>Bảo mật tuyệt đối</h3>
+        <p>File không rời khỏi máy bạn. Không có server nào nhận dữ liệu.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <h3>Nhanh & mượt</h3>
+        <p>Chạy native trên máy, không phụ thuộc tốc độ internet.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💯</span>
+        <h3>Miễn phí vĩnh viễn</h3>
+        <p>Open source, không trả phí, không giới hạn số lần dùng.</p>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📐</span>
+        <h3>Giữ nguyên layout</h3>
+        <p>Công nghệ pdf2docx bảo toàn bảng, hình ảnh, định dạng.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      Made with ❤️ · 
+      <a href="https://github.com" target="_blank">GitHub</a> · 
+      Open Source under MIT License
+    </p>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
